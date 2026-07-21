@@ -46,7 +46,7 @@ The main notebook is [`resonator.ipynb`](resonator.ipynb), and the reusable Pyth
 - Traces single rays and multiple launch-angle ray bundles.
 - Generates dark-theme publication-style static plots.
 - Exports animated ray tracing as GIF files.
-- Includes a $g_1$-$g_2$ stability diagram with the selected cavity operating point.
+- Includes a $g_1 - g_2$ stability diagram with the selected cavity operating point.
 
 ---
 
