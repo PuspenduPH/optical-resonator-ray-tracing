@@ -1019,7 +1019,7 @@ class CavityRayTracing:
                 writer = FFMpegWriter(
                     fps=fps,
                     codec="libx264",
-                    bitrate=8000,  # 8 Mbps
+                    bitrate=8000, 
                     extra_args=[
                         "-pix_fmt",
                         "yuv420p",
@@ -1243,8 +1243,6 @@ class CavityRayTracing:
             print(f"\nError during simulation: {e}")
             raise
 
-
-# ── Entry point ────────────────────────────────────────────────────────────────
 
 
 def main():
