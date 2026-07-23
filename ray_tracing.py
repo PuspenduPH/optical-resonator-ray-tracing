@@ -211,7 +211,7 @@ class CavityRayTracing:
         else:
             self.cavity_config = "Convex-Concave"
 
-        # Determine mirror description string for titles
+        # Determination of mirror description string for titles
         if self.mirror1_type == self.mirror2_type:
             self.mirror_description = f"{self.mirror1_type}"
         else:
@@ -420,7 +420,7 @@ class CavityRayTracing:
         # Initial state vector [y, theta]
         y_theta_vec = np.array([[y0_initial], [theta0_initial]])
 
-        # Calculate the initial point on Mirror 1
+        # Initial point on Mirror 1
         x0 = self._get_x_on_mirror(
             y0_initial, self.R1, self.left_mirror_center_x, "left"
         )
@@ -430,9 +430,9 @@ class CavityRayTracing:
 
         current_segment.append((x0, y0_initial))
 
-        # Perform ray tracing
+        # Ray tracing
         for i in range(N_round_trips):
-            # Propagate from Mirror 1 to Mirror 2
+            # Propagation from Mirror 1 to Mirror 2
             y_theta_vec = M_prop @ y_theta_vec
             y_at_M2 = y_theta_vec[0, 0]
             x_at_M2 = self._get_x_on_mirror(
@@ -452,10 +452,10 @@ class CavityRayTracing:
             ray_segments.append(current_segment.copy())
             current_segment = [(x_at_M2, y_at_M2)]
 
-            # Reflect from Mirror 2
+            # Reflection from Mirror 2
             y_theta_vec = M_refl_2 @ y_theta_vec
 
-            # Propagate from Mirror 2 back to Mirror 1
+            # Propagation from Mirror 2 back to Mirror 1
             y_theta_vec = M_prop @ y_theta_vec
             y_at_M1 = y_theta_vec[0, 0]
             x_at_M1 = self._get_x_on_mirror(
@@ -475,7 +475,7 @@ class CavityRayTracing:
             ray_segments.append(current_segment.copy())
             current_segment = [(x_at_M1, y_at_M1)]
 
-            # Reflect from Mirror 1
+            # Reflection from Mirror 1
             y_theta_vec = M_refl_1 @ y_theta_vec
 
         return ray_segments, y_theta_vec
@@ -632,7 +632,6 @@ class CavityRayTracing:
         fig.subplots_adjust(left=0.02, right=0.8, top=0.94, bottom=0.02)
         ax.set_facecolor(self.color_dict[ray_color]["ax_face"])
 
-        # Draw mirrors using helper method (oriented for concave or convex)
         left_mirror, right_mirror = self._get_mirror_arcs(arc_angle)
         ax.add_patch(left_mirror)
         ax.add_patch(right_mirror)
@@ -698,7 +697,6 @@ class CavityRayTracing:
         ax.set_title(f"Single Ray Tracing in {title_str} Cavity", pad=10)
         ax.legend(loc="upper center")
 
-        # Save figure if requested
         if save_figure:
             self._save_figure(fig, filename, theta0_initial_deg, ray_color)
 
@@ -836,10 +834,9 @@ class CavityRayTracing:
             ray_segments, points_per_segment
         )
 
-        # Set up figure and axes
+        # Figure and axes set up
         fig, ax = plt.subplots(figsize=(12, 8))
-        r_margin = 0.8 if self.mirror_description == "Concave" else 0.75
-        fig.subplots_adjust(left=0.02, right=r_margin, top=0.94, bottom=0.02)
+        fig.subplots_adjust(left=0.02, right=0.8, top=0.94, bottom=0.02)
         ax.set_facecolor(self.color_dict[ray_color]["ax_face"])
 
         # Mirrors
@@ -934,7 +931,6 @@ class CavityRayTracing:
             trail_y = [p[1] for p in trail]
             ray_line.set_data(trail_x, trail_y)
 
-            # Update round-trip counter
             s_idx = seg_ids[frame]
             completed = s_idx // 2
             if (s_idx % 2 == 1) and (pt_idx_in_seg[frame] == npps - 1):
@@ -966,7 +962,7 @@ class CavityRayTracing:
 
             return (ray_line, round_text)
 
-        # Create animation
+        # Animation
         anim = FuncAnimation(
             fig,
             animate,
@@ -976,7 +972,6 @@ class CavityRayTracing:
             repeat=False,
         )
 
-        # Save or display
         if save_animation:
             self._save_animation(anim, filename, fps, ray_color, anim_format)
             plt.close(fig)
@@ -1019,7 +1014,7 @@ class CavityRayTracing:
                 writer = FFMpegWriter(
                     fps=fps,
                     codec="libx264",
-                    bitrate=8000, 
+                    bitrate=8000,
                     extra_args=[
                         "-pix_fmt",
                         "yuv420p",
@@ -1040,7 +1035,7 @@ class CavityRayTracing:
             print(f"Error saving animation: {e}")
 
     # -------------------------------------------------------------------------
-    # Unified interactive CLI
+    # Interactive CLI
     # -------------------------------------------------------------------------
 
     def run_interactive(self):
@@ -1242,7 +1237,6 @@ class CavityRayTracing:
         except Exception as e:
             print(f"\nError during simulation: {e}")
             raise
-
 
 
 def main():
