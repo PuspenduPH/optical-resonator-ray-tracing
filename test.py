@@ -456,7 +456,6 @@ def animate_cavity_cases(
                 _png_dir = Path(output_dir)
                 _png_dir.mkdir(parents=True, exist_ok=True)
                 stem = _filename if _filename else f"{_auto_stem}_{category}"
-                # Avoid overwriting existing files
                 candidate = _png_dir / f"{stem}.png"
                 if candidate.exists():
                     counter = 1
